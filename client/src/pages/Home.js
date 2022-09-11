@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Auth from "../utils/auth";
+import NavBar from '../components/NavBar'
 import Owner from '../pages/Owner';
+import Chef from '../pages/Chef';
 
 // import UserProfile from "../components/UserProfile";
 // import UserFeed from "../components/UserFeed";
@@ -24,7 +26,11 @@ const Home = () => {
       <Row className="row justify-content-between">
         
       {Auth.loggedIn() ? (
+        <>
+        <NavBar />
+
         <Owner />
+        </>
         ) : (
           <>
             <Col sm={6} style={{background: 'grey'}}>
@@ -38,7 +44,7 @@ const Home = () => {
             </div>
 
             <div>
-            <Link to="/Chef">
+            <Link to="/chef">
                 <Button style={{width: "20vh", borderStyle: "solid", borderColor: "black", marginTop: "2vh", backgroundColor: "#a64dff", boxShadow: "5px 5px grey", color: "white"}} variant="warning"> Chef </Button>
             </Link>
             </div>

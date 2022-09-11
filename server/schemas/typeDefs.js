@@ -10,54 +10,45 @@ const typeDefs = gql`
     email: String!
   }
 
-#   type Event {
-#     _id: ID
-#     title: String
-#     date: String
-#     eventAuthor: String
-#     description: String
-#     address: String
-#     createdAt: String
-#   }
-
-#   type Connection {
-#     selfUsername: String!
-#     otherUsername: String
-#     closeFriend: Boolean
-#   }
-
-#   type Group {
-#     title: String
-#     members: [User]
-#     events: [Event]
-#   }
-
-#   type Recap {
-#     _id: ID
-#     image: String
-#     eventDescription: String
-#   }
-
   type Auth {
     token: ID
     user: User
   }
 
+  type Category {
+    _id: ID
+    name: String
+    toppings: [Topping]
+    pizzas: [Pizza]
+  }
+
+  type Topping {
+    _id: ID
+    name: String
+    quantity: Int
+    # category: Category
+  }
+
+  type Pizza {
+    _id: ID
+    name: String
+    toppings: [Topping]
+    # category: Category
+  }
+
   type Query {
     me: User
     user(email: String!): User
-    users: [User]
-    username: [User]
-    # events: Event
-    # events: [Event]
-    # events(username: String): [Event]
-    # event(eventId: ID!): Event
+    categories: [Category]
+    toppings(category: ID): [Topping]
+    topping(_id: ID!): Topping
+    pizzas(category: ID): [Pizza]
   }
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    # addEvent(title: String!, description: String!, address: String!, date: String!): [Event]
+    updateTopping(_id: ID!, quantity: Int!): Topping
   }
 `;
 

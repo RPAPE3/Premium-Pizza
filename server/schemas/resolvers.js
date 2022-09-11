@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Topping, Pizza, Category } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -14,15 +14,26 @@ const resolvers = {
 
       return User.findOne({ email });
     },
-    users: async (parent) => {
-      return User.find({});
+    categories: async () => {
+      return await Category.find().populate('toppings').populate('pizzas');
     },
-    // events: async (parent, args, context) => {
-    //   if (args.username) {
-    //     return User.find({ username: args.username }).populate("events").events; //finder other users events by username.
-    //   } else if (context.user) {
-    //     return User.findById(context.user._id).populate("events").events; //find own events by id.
+    // toppings: async (parent, { category }) => {
+    //   const params = {};
+
+    //   if (category) {
+    //     params.category = category;
     //   }
+
+    //   return await Topping.find(params).populate('category');
+    // },
+    // pizzas: async (parent, { category }) => {
+    //   const params = {};
+
+    //   if (category) {
+    //     params.category = category;
+    //   }
+
+    //   return await Pizza.find(params).populate('category').populate('toppings');
     // },
   },
   Mutation: {
@@ -51,29 +62,11 @@ const resolvers = {
       return { token, user };
     },
 
-    // addEvent: async (
-    //   parent,
-    //   { title, description, address, date },
-    //   context
-    // ) => {
-    //   if (context.user) {
-    //   const event = await Event.create({
-    //     title,
-    //     description,
-    //     address,
-    //     date,
-    //     eventAuthor: context.user.username,
-    //   });
+    updateTopping: async (parent, { _id, quantity }) => {
+      const decrement = Math.abs(quantity) * -1;
 
-    //   await User.findOneAndUpdate(
-    //     { _id: context.user._id },
-    //     { $addToSet: { events: event._id } }
-    //   );
-
-    //   return event;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
+      return await Topping.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+    },
   },
 
 };

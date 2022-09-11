@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 // import Friends from './pages/Friends';
 import NoMatch from './pages/NoMatch';
+import Chef from './pages/Chef';
 // import FullProfile from './pages/FullProfile'
 
 const httpLink = createHttpLink({
@@ -51,6 +52,10 @@ function App() {
               <Route 
                 path="/signup" 
                 element={<Signup />} 
+              />
+              <Route 
+                path="/chef" 
+                element={<Chef />} 
               />
               <Route 
                 path="*" 

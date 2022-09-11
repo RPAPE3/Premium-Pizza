@@ -12,27 +12,6 @@ export const QUERY_USER = gql`
   }
 `;
 
-// export const QUERY_EVENT = gql`
-//   query event($eventId: ID!) {
-//     event(eventID: $eventId) {
-//       _id
-//       eventAuthor
-//       description
-//       createdAt
-//     }
-//   }
-// `;
-
-// export const QUERY_GROUPS = gql`
-//   query groups {
-//     group {
-//       title
-//       members
-//       events
-//     }
-//   }
-// `;
-
 export const QUERY_ME = gql`
   query me {
     me {
@@ -45,15 +24,51 @@ export const QUERY_ME = gql`
   }
 `;
 
+export const QUERY_ALL_CATEGORIES = gql`
+  query categories {
+    categories {
+    _id
+    name
+    toppings {
+      _id
+      name
+      quantity
+    }
+    pizzas {
+      _id
+      name
+    }
+  }
+  }
+`;
 
-// export const QUERY_USER_DATA = gql` 
-//   query user($email: String!) {
-//     user(email: $email) {
+// export const QUERY_ALL_TOPPINGS = gql`
+//   query toppings {
+//     toppings {
 //       _id
-//       firstName
-//       lastName
-//       username
-//       email
+//       name
+//       quantity
+//       category {
+//         _id
+//         name
+//       }
+//     }
 //   }
+// `;
+
+// export const QUERY_ALL_PIZZAS = gql`
+//   query pizzas {
+//     pizzas {
+//       _id
+//       name
+//       toppings {
+//         _id
+//         name
+//       }
+//       category {
+//         _id
+//         name
+//       }
+//     }
 //   }
 // `;
