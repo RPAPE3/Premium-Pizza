@@ -37,38 +37,22 @@ export const QUERY_ALL_CATEGORIES = gql`
     pizzas {
       _id
       name
+      toppings {
+        _id
+        name
+      }
     }
   }
   }
 `;
 
-// export const QUERY_ALL_TOPPINGS = gql`
-//   query toppings {
-//     toppings {
-//       _id
-//       name
-//       quantity
-//       category {
-//         _id
-//         name
-//       }
-//     }
-//   }
-// `;
-
-// export const QUERY_ALL_PIZZAS = gql`
-//   query pizzas {
-//     pizzas {
-//       _id
-//       name
-//       toppings {
-//         _id
-//         name
-//       }
-//       category {
-//         _id
-//         name
-//       }
-//     }
-//   }
-// `;
+export const QUERY_TOPPING = gql`
+  query topping($id: ID!) {
+    topping(_id: $id) {
+      _id
+      categoryName
+      name
+      quantity
+    }
+  }
+`;

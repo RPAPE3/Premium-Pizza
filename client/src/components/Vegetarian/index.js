@@ -1,11 +1,29 @@
 import React from "react";
 import Image from "react-bootstrap/Image";
+import { useMutation } from '@apollo/client';
 
 import Default from "../../assets/images/Default.png";
+import { DELETE_PIZZA } from '../../utils/mutations';
 
 const Vegetarian = ({ categories, test }) => {
 
- 
+  const [deletePizza, { error }] = useMutation (DELETE_PIZZA);
+
+  const handleRemoveTopping = async (id) => {
+    try {
+      const { data } = await deletePizza({
+        variables: { id }
+      });
+      refreshComponent()
+    } catch (err) {
+      console.error(err)
+    }
+  };
+
+  function refreshComponent() {
+      window.location.reload(false);
+    };
+
  
 
     function filterToppings () {
@@ -28,9 +46,16 @@ const Vegetarian = ({ categories, test }) => {
             <Image src={Default} style={{ maxWidth: "50%", marginLeft: "25%" }} className=" card-img-top" alt="default place holder image" />
             <div className="card-body">
               <h5 className="card-title">{pizza.name}</h5>
-              <p className="card-text">Some quick example.</p>
-              <a href="#" className="btn btn-primary">Go somewhere</a>
+              {pizza.toppings.map((topping) => (
+                               <ul>
+                                <li>{topping.name}</li>
+                               </ul> 
+                            ))}
             </div>
+            <button className="btn btn-primary" onClick={() => handleRemoveTopping(pizza._id)}>Delete</button>
+                        {error && (
+        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
+      )}
           </div>
           ))
         )} 

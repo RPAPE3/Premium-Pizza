@@ -25,15 +25,14 @@ const typeDefs = gql`
   type Topping {
     _id: ID
     name: String
-    quantity: Int
-    # category: Category
+    quantity: String
+    categoryName: String,
   }
 
   type Pizza {
     _id: ID
     name: String
     toppings: [Topping]
-    # category: Category
   }
 
   type Query {
@@ -41,14 +40,18 @@ const typeDefs = gql`
     user(email: String!): User
     categories: [Category]
     toppings(category: ID): [Topping]
-    topping(_id: ID!): Topping
+    topping(toppingId: ID!): Topping
     pizzas(category: ID): [Pizza]
   }
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    updateTopping(_id: ID!, quantity: Int!): Topping
+    deleteTopping(_id: ID!): Topping
+    deletePizza(_id: ID!): Pizza
+    addTopping(categoryName: String!, name: String!, quantity: String!): Topping
+    addToppings(categoryName: String!, name: String!, quantity: String!): Category
+    updateTopping(_id: ID!, quantity: String!): Topping
   }
 `;
 

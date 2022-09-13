@@ -9,15 +9,12 @@ const toppingsSchema = new Schema({
     trim: true
   },
   quantity: {
-    type: Number,
-    min: 0,
-    default: 0
+    type: String,
   },
-  // category: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Category',
-  //   required: true
-  // }
+  
+  categoryName: {
+    type: String, 
+  }
 });
 
 const Topping = mongoose.model('Topping', toppingsSchema);

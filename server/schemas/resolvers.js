@@ -15,26 +15,14 @@ const resolvers = {
       return User.findOne({ email });
     },
     categories: async () => {
-      return await Category.find().populate('toppings').populate('pizzas');
+      return await Category.find().populate('toppings').populate({
+        path: 'pizzas',
+        populate: 'toppings'
+      });
     },
-    // toppings: async (parent, { category }) => {
-    //   const params = {};
-
-    //   if (category) {
-    //     params.category = category;
-    //   }
-
-    //   return await Topping.find(params).populate('category');
-    // },
-    // pizzas: async (parent, { category }) => {
-    //   const params = {};
-
-    //   if (category) {
-    //     params.category = category;
-    //   }
-
-    //   return await Pizza.find(params).populate('category').populate('toppings');
-    // },
+    pizzas: async () => {
+      return await Pizza.find().populate('toppings');
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -60,6 +48,43 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    
+    deleteTopping: async (parent, toppingId) => {
+      return Topping.findOneAndDelete({ _id: toppingId })
+    },
+
+    deletePizza: async (parent, pizzaId) => {
+      return Pizza.findOneAndDelete({ _id: pizzaId })
+    },
+
+    addTopping: async (parent, { categoryName, name, quantity }) => { 
+       const topping = await Topping.create({
+        categoryName,
+        name,
+        quantity
+      });
+
+      await Category.findOneAndUpdate(
+        { name: categoryName },
+        { $addToSet: { toppings: topping._id } }
+      );
+
+      return topping;
+
+    },
+
+    addToppings: async (parent, { categoryName, name, quantity }) => {
+      return Category.findOneAndUpdate(
+        { name: categoryName },
+        {
+          $addToSet: { toppings:  {name: name, quantity: quantity} },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
     },
 
     updateTopping: async (parent, { _id, quantity }) => {
