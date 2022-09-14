@@ -59,3 +59,14 @@ mutation addTopping($categoryName: String!, $name: String!, $quantity: String!) 
   }
 }
 `;
+export const CREATE_PIZZA = gql`
+mutation addPizza($categoryName: String!, $pizzaName: String!, $id: ID!) {
+  addPizza(categoryName: $categoryName, pizzaName: $pizzaName, _id: $id) {
+    pizzaName
+    categoryName
+    toppings {
+      _id
+    }
+  }
+}
+`;

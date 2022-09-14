@@ -20,9 +20,9 @@ const resolvers = {
         populate: 'toppings'
       });
     },
-    pizzas: async () => {
-      return await Pizza.find().populate('toppings');
-    },
+    // pizzas: async () => {
+    //   return await Pizza.find().populate('toppings');
+    // },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -74,18 +74,39 @@ const resolvers = {
 
     },
 
-    addToppings: async (parent, { categoryName, name, quantity }) => {
-      return Category.findOneAndUpdate(
-        { name: categoryName },
-        {
-          $addToSet: { toppings:  {name: name, quantity: quantity} },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    },
+    addPizza: async (parent, { categoryName, pizzaName, _id }) => { 
+      const pizza = await Pizza.create({
+       categoryName,
+       pizzaName,
+       toppings: _id
+     });
+
+    //  await Pizza.findOneAndUpdate(
+    //   { pizzaName: pizza.pizzaName },
+    //   { $addToSet:  {toppings: _id} }
+    // );
+
+     await Category.findOneAndUpdate(
+       { name: categoryName },
+       { $addToSet: { pizzas: pizza._id } }
+     );
+
+     return pizza;
+
+   },
+
+    // addToppings: async (parent, { categoryName, name, quantity }) => {
+    //   return Category.findOneAndUpdate(
+    //     { name: categoryName },
+    //     {
+    //       $addToSet: { toppings:  {name: name, quantity: quantity} },
+    //     },
+    //     {
+    //       new: true,
+    //       runValidators: true,
+    //     }
+    //   );
+    // },
 
     updateTopping: async (parent, { _id, quantity }) => {
       const decrement = Math.abs(quantity) * -1;

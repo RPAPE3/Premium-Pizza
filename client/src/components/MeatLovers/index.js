@@ -40,15 +40,15 @@ const MeatLovers = ({ categories, test }) => {
             {filterToppings().map((category) =>
                 category.pizzas.map((pizza) => (
 
-                    <div key={pizza._id} className="col-3 my-5 mx-5 card" >
+                    <div key={pizza._id} className="col my-5 card mx-auto" style={{maxWidth: 200}} >
                         <Image src={Default} style={{ maxWidth: "50%", marginLeft: "25%" }} className=" card-img-top" alt="default place holder image" />
-                        <div className="card-body">
-                            <h5 className="card-title">{pizza.name}</h5>
-                            {pizza.toppings.map((topping) => (
-                               <ul>
+                        <div className="card-body text-start">
+                            <h5 className="card-title text-center">{pizza.pizzaName}</h5>
+                            <ul>
+              {pizza.toppings.map((topping) => (
                                 <li>{topping.name}</li>
-                               </ul> 
                             ))}
+                            </ul>
                         </div>
                         <button className="btn btn-primary" onClick={() => handleRemoveTopping(pizza._id)}>Delete</button>
                         {error && (

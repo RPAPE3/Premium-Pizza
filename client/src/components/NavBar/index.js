@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
+import { Link } from "react-router-dom";
 
 import Auth from "../../utils/auth";
 import Logo from "../../assets/images/Logo.png";
@@ -11,16 +12,20 @@ import Logo from "../../assets/images/Logo.png";
 const NavBar = () => {
   return (
     <>
+    
     <Container fluid="true">
     
-      <Row className="row justify-content-between" style={{background: "orange",}}>
+      <Row className="row justify-content-between" style={{background: "#FBD412"}}>
 
+      {Auth.loggedIn() ? (
+
+        <>
       <Col sm={10} className="text-center">
                 <div>
                   <Image style={{width: "12vh", marginLeft: "15%", marginBottom: "1vh", marginTop: "1vh"}} fluid="true" src={Logo}/>
                 </div>
                 
-                <h3 style={{marginLeft: "15%"}}>Premium Pizza</h3>
+                <Link to="/"> <h3 style={{marginLeft: "15%", fontFamily: "Segoe Print", fontWeight: "bold", fontSize: 50, color: "black"}}>Premium Pizza</h3> </Link>
                 </Col>
                 <Col sm={2}>
                 
@@ -32,13 +37,12 @@ const NavBar = () => {
                         width: "20vh",
                         borderStyle: "solid",
                         marginTop: "2vh",
-                        backgroundColor: "#a64dff",
+                        backgroundColor: "#A19B9B",
                         borderColor: "black",
                         boxShadow: "5px 5px grey",
                         color: "white",
                       }}
                     >
-                      {/* this is not using the Link component to logout or user and then refresh the application to the start */}
                       <a
                         href="/"
                         style={{ color: "white" }}
@@ -49,6 +53,21 @@ const NavBar = () => {
                     </button>
                   </div>
             </Col>
+            </>
+
+) : (
+  <>
+  <Col sm={10} className="text-center">
+                <div>
+                  <Image style={{width: "12vh", marginLeft: "15%", marginBottom: "1vh", marginTop: "1vh"}} fluid="true" src={Logo}/>
+                </div>
+                
+                <Link to="/"> <h3 style={{marginLeft: "15%", fontFamily: "Segoe Print", fontWeight: "bold", fontSize: 50, color: "black"}}>Premium Pizza</h3> </Link>
+                </Col>
+                <Col sm={2}>
+            </Col>
+            </>
+)}
       </Row>
     
      </Container>

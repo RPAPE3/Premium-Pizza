@@ -67,39 +67,39 @@ console.log('Toppings seeded');
 
  const pizzas = await Pizza.insertMany([
     {
-        name: "Pepperoni Pizza",
+        pizzaName: "Pepperoni Pizza",
         toppings: [toppings[0]._id, toppings[6]._id]
     },
     {
-        name: "Sausage Pizza",
+        pizzaName: "Sausage Pizza",
         toppings: [toppings[1]._id, toppings[7]._id]
     },
     {
-        name: "Bacon Pizza",
+        pizzaName: "Bacon Pizza",
         toppings: [toppings[2]._id, toppings[8]._id]
     },
     {
-        name: "Refreshing Pizza",
+        pizzaName: "Refreshing Pizza",
         toppings: [toppings[3]._id, toppings[6]._id]
     },
     {
-        name: "Garden Pizza",
+        pizzaName: "Garden Pizza",
         toppings: [toppings[4]._id, toppings[7]._id]
     },
     {
-        name: "Arizona Pizza",
+        pizzaName: "Arizona Pizza",
         toppings: [toppings[5]._id, toppings[8]._id]
     },
     {
-        name: "Python Pizza",
+        pizzaName: "Python Pizza",
         toppings: [toppings[0]._id, toppings[3]._id, toppings[6]._id]
     },
     {
-        name: "Ruby Pizza",
+        pizzaName: "Ruby Pizza",
         toppings: [toppings[1]._id, toppings[4]._id, toppings[7]._id]
     },
     {
-        name: "JavaScript Pizza",
+        pizzaName: "JavaScript Pizza",
         toppings: [toppings[2]._id, toppings[5]._id, toppings[8]._id]
     },
 

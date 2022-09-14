@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const pizzaSchema = new Schema({
-  name: {
+  pizzaName: {
     type: String,
     required: true,
     trim: true
+  },
+
+  categoryName: {
+    type: String, 
   },
 
   toppings: [

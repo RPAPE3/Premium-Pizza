@@ -26,12 +26,13 @@ const typeDefs = gql`
     _id: ID
     name: String
     quantity: String
-    categoryName: String,
+    categoryName: String
   }
 
   type Pizza {
     _id: ID
-    name: String
+    pizzaName: String
+    categoryName: String
     toppings: [Topping]
   }
 
@@ -39,9 +40,9 @@ const typeDefs = gql`
     me: User
     user(email: String!): User
     categories: [Category]
-    toppings(category: ID): [Topping]
-    topping(toppingId: ID!): Topping
-    pizzas(category: ID): [Pizza]
+    # toppings(category: ID): [Topping]
+    # topping(toppingId: ID!): Topping
+    # pizzas(category: ID): [Pizza]
   }
 
   type Mutation {
@@ -50,7 +51,8 @@ const typeDefs = gql`
     deleteTopping(_id: ID!): Topping
     deletePizza(_id: ID!): Pizza
     addTopping(categoryName: String!, name: String!, quantity: String!): Topping
-    addToppings(categoryName: String!, name: String!, quantity: String!): Category
+    addPizza(categoryName: String!, pizzaName: String!, _id: ID!): Pizza
+    # addToppings(categoryName: String!, name: String!, quantity: String!): Category
     updateTopping(_id: ID!, quantity: String!): Topping
   }
 `;

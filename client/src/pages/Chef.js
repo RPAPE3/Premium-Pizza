@@ -4,11 +4,13 @@ import { useQuery } from '@apollo/client';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Link } from "react-router-dom";
 
+
+import NavBar from '../components/NavBar'
+import CreatePizza from '../components/CreatePizza'
 import MeatLovers from '../components/MeatLovers';
-import Vegetarian from '../components/Vegetarian'
-import Specialty from '../components/Specialty'
+import Vegetarian from '../components/Vegetarian';
+import Specialty from '../components/Specialty';
 
 const Chef = () => {
 
@@ -22,18 +24,21 @@ const Chef = () => {
 
   return (
     <>
-      <Link to="/"> <h1>Pizzas</h1> </Link>
+      <NavBar />
       <Container className=" text-center" fluid="true" >
-        <Row className="row align-items-center justify-content-evenly" style={{ backgroundColor: "grey" }}>
+        <CreatePizza 
+         categories={categories}
+        />
+        <Row className="row  justify-content-evenly" style={{ backgroundColor: "grey" }}>
 
-          <Col sm={4} style={{ background: "orange" }}>
+          <Col sm={4} style={{ background: "orange" }} className="">
             <MeatLovers
               categories={categories}
               test={categories.name}
             />
           </Col>
 
-          <Col sm={4} style={{ background: "grey" }}>
+          <Col sm={4} style={{ background: "#FDFEC2" }} className="">
             <Vegetarian
               categories={categories}
               test={categories.name}
@@ -41,7 +46,7 @@ const Chef = () => {
 
           </Col>
 
-          <Col sm={4} style={{ background: "orange" }}>
+          <Col sm={4} style={{ background: "orange" }} className="">
             <Specialty
               categories={categories}
               test={categories.name}

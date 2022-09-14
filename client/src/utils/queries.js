@@ -36,7 +36,7 @@ export const QUERY_ALL_CATEGORIES = gql`
     }
     pizzas {
       _id
-      name
+      pizzaName
       toppings {
         _id
         name
@@ -46,13 +46,13 @@ export const QUERY_ALL_CATEGORIES = gql`
   }
 `;
 
-export const QUERY_TOPPING = gql`
-  query topping($id: ID!) {
-    topping(_id: $id) {
-      _id
-      categoryName
-      name
-      quantity
-    }
-  }
-`;
+// export const QUERY_TOPPING = gql`
+//   query topping($id: ID!) {
+//     topping(_id: $id) {
+//       _id
+//       categoryName
+//       name
+//       quantity
+//     }
+//   }
+// `;

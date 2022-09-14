@@ -8,7 +8,8 @@ import { DELETE_TOPPING } from '../../utils/mutations';
 
 const CheeseToppings = ({ categories, test }) => {
 
-  const [deleteTopping, { error }] = useMutation (DELETE_TOPPING);
+  //DELETE A CHEESE TOPPING
+  const [deleteTopping, { error }] = useMutation(DELETE_TOPPING);
 
   const handleRemoveTopping = async (id) => {
     try {
@@ -20,42 +21,42 @@ const CheeseToppings = ({ categories, test }) => {
       console.error(err)
     }
   };
- 
+
+  //REFRESH PAGE AFTER DELETE BUTTON IS CLICKED
   function refreshComponent() {
     window.location.reload(false);
-  }
+  };
 
-    function filterToppings () {
+  //DISPLAY ONLY CHEESE TOPPINGS 
+  function filterToppings() {
 
-      
+    return categories.filter(
+      (category) => category.name === "Cheese"
+    )
+  };
 
-      return categories.filter(
-        (category) => category.name === "Cheese"
-      )
-    }
-  
-  
+  //DISPLAY ALL CHEESE CATEGORY TOPPINGS FROM DATABASE
   return (
     <>
-    {filterToppings().map((category) => (
-      <h2 key={category.name}> {category.name} </h2>
-    ))}
-      {filterToppings().map((category) => 
-          category.toppings.map((topping) => ( 
-           
-            <div key={topping._id} className="col-3 my-5 mx-5 card" >
+      {filterToppings().map((category) => (
+        <h2 key={category.name}> {category.name} </h2>
+      ))}
+      {filterToppings().map((category) =>
+        category.toppings.map((topping) => (
+
+          <div key={topping._id} className="my-5 mx-5 card max-auto" style={{ maxWidth: 225 }}>
             <Image src={Default} style={{ maxWidth: "50%", marginLeft: "25%" }} className=" card-img-top" alt="default place holder image" />
             <div className="card-body">
-              <h5 className="card-title">{topping.name}</h5>
-              
-              <button className="btn btn-primary" onClick={() => handleRemoveTopping(topping._id)}>Delete</button>
+              <h3 className="card-title" style={{ fontFamily: "Rockwell" }}>{topping.name}</h3>
+              <h5 className="card-title">Quantity: <span style={{ color: "red" }}> {topping.quantity}</span></h5>
             </div>
+            <button className="btn" style={{ background: "#FA5C3D" }} onClick={() => handleRemoveTopping(topping._id)}>Delete</button>
             {error && (
-        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-      )}
+              <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
+            )}
           </div>
-          ))
-        )}
+        ))
+      )}
     </>
   );
 };
